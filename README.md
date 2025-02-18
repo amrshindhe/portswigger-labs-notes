@@ -74,4 +74,4 @@
 
 A big thanks to **PortSwigger Web Security Academy** for providing these amazing labs!
 
-📩 **Connect with me:** [LinkedIn](#) | [Twitter](#)
+📩 **Connect with me:** [LinkedIn](https://www.linkedin.com/in/amarshindhe/) | [Twitter](https://x.com/amrshindhe)
