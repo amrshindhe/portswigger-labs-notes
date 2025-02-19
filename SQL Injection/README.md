@@ -11,6 +11,9 @@ SQL Injection (SQLi) is a web security vulnerability that allows an attacker to 
   - **Time-Based Blind SQLi**: Uses time delays to determine query success.
 - **Out-of-Band SQL Injection**: Uses external systems like DNS or HTTP requests to exfiltrate data.
 
+## Impact of a SQL Injection Attack
+Depends on vulnerability, in worst case data leak, do CRUD operation
+
 ## Example of a SQL Injection Attack
 ### Vulnerable Query (User Authentication)
 ```sql
