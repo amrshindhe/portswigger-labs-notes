@@ -4,7 +4,7 @@
 SQL Injection (SQLi) is a web security vulnerability that allows an attacker to interfere with the queries that an application makes to its database. By manipulating SQL queries, an attacker can retrieve, modify, or delete database records without proper authorization.
 
 ## Types of SQL Injection
-- **Inband SQL Injection**: If we are using same channel to both launch the attack and gather the result
+- **In-band SQL Injection**: If we are using same channel to both launch the attack and gather the result 
   - **Error-Based SQL Injection**: Uses database errors to extract information.
   - **Union-Based SQL Injection**: Leverages the `UNION` SQL operator to retrieve additional data.
 - **Blind SQL Injection**: Exploits queries that do not return results but still affect database logic.
